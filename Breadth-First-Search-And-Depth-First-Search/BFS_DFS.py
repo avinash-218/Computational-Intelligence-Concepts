@@ -1,89 +1,86 @@
-def add_node(num_nodes, edges):
-	edges[num_nodes] = []
-	num_nodes+=1
-	return num_nodes
+def add_node(graph, name):
+	graph[name]=dict()
+	graph[name]['adj']=[]
+	graph[name]['visit']=False
 
-def add_edge(u, v, edges):
-	edges[u].append(v)
-	edges[v].append(u)
+def add_edge(graph, u, v):
+	graph[u]['adj'].append(v)
+	graph[v]['adj'].append(u)
 
-def display_graph(edges,num_nodes):
-	print("\nNumber of nodes :", num_nodes)
-	print("Adjacency Lists :")
-	print(edges)
+def BFS(graph, start, end):
+	bfs_path = []
+	queue=[start]
 
-def BFS(edges, start, end):#using queue
-	visited = [False]*len(edges)
-	queue = []
-	output = []
-
-	queue.append(start)
-	visited[start] = True
+	graph[start]['visit']=True
 
 	while(queue):
-		ele = queue.pop(0)
-		output.append(ele)
-		if(ele == end):
+		temp = queue.pop(0)#pop first element
+		bfs_path.append(temp)#add the element to path
+
+		if(temp==end):
 			break
 
-		for i in edges[ele]:
-			if(visited[i]==False):
-				visited[i] = True
+		for i in graph[temp]['adj']:
+			if(graph[i]['visit']==False):
+				graph[i]['visit']=True
 				queue.append(i)
-	return output
 
-def DFS(edges, start, end):#using stack
-	visited = [False]*len(edges)
-	stack = []
-	output = []
+	return bfs_path
 
-	stack.append(start)
-	visited[start] = True
+def DFS(graph, start, end):
+	dfs_path = []
+	stack=[start]
+
+	graph[start]['visit']=True
 
 	while(stack):
-		ele = stack.pop()
-		output.append(ele)
-		if(ele == end):
+		temp = stack.pop()#pop first element
+		dfs_path.append(temp)#add the element to path
+
+		if(temp==end):
 			break
 
-		for i in edges[ele]:
-			if(visited[i]==False):
-				visited[i] = True
+		for i in graph[temp]['adj']:
+			if(graph[i]['visit']==False):
+				graph[i]['visit']=True
 				stack.append(i)
-	return output
 
-if __name__ == '__main__':
-	num_nodes = 0
-	edges = dict()
+	return dfs_path
+
+if __name__=='__main__':
+	graph = dict()
 	while(True):
-		print("1. Add Node")
-		print("2. Add Edge")
-		print("3. DFS")
-		print("4. BFS")
-		print("5. Display Graph")
-		print("6. Exit")
-		choice = input("Enter your choice:\n")
-		if(choice=='1'):#add node
-			num_nodes = add_node(num_nodes, edges)
-		elif(choice=='2'):
-			edge = list(map(int, input("Enter edges as u,v\n").split()))
-			u, v = edge[0], edge[1]
-			add_edge(u,v,edges)
-		elif(choice=='3'):
-			start = int(input("Enter start node: "))
-			end = int(input("Enter end node: "))
-			output = DFS(edges, start, end)
-			print("Traversal :", output)
-		elif(choice=='4'):
-			start = int(input("Enter start node: "))
-			end = int(input("Enter end node: "))
-			output = BFS(edges, start, end)
-			print("Traversal :", output)
-		elif(choice=='5'):
-			display_graph(edges, num_nodes)
-		elif(choice=='6'):
+		print('1 - Add Node')
+		print('2 - Add Edge')
+		print('3 - Display Graph')
+		print('4 - BFS')
+		print('5 - DFS')
+		print('6 - Exit')
+
+		ch = int(input())
+		print(ch)
+
+		if(ch==1):
+			name = input('Enter Node Name : ')
+			print(name)
+			add_node(graph, name)
+		elif(ch==2):
+			u, v = input('Enter edge as u v : ').split()
+			print(u,v)
+			add_edge(graph, u, v)
+		elif(ch==3):
+			print(graph)
+		elif(ch==4):
+			start, end = input('Enter starting and ending node : ').split()
+			print(start, end)
+			bfs_path = BFS(graph, start, end)
+			print('BFS Path -', bfs_path)
+		elif(ch==5):
+			start, end = input('Enter starting and ending node : ').split()
+			print(start, end)
+			dfs_path = DFS(graph, start, end)
+			print('DFS Path -', dfs_path)
+		elif(ch==6):
 			break
 		else:
-			print("Invalid Option")
-
-		print()
+			print('Invalid Input')
