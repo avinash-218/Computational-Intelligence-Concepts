@@ -8,4 +8,5 @@
 6. [Lisp](https://github.com/avinash-218/Computational-Intelligence-Concepts/tree/master/Lisp)
 7. [Perceptron](https://github.com/avinash-218/Computational-Intelligence-Concepts/tree/master/Perceptron)
 8. [Prolog](https://github.com/avinash-218/Computational-Intelligence-Concepts/tree/master/Prolog)
+9. [Pyro](https://github.com/avinash-218/Computational-Intelligence-Concepts/tree/master/Pyro)
 9. [Uniform-Cost-Search](https://github.com/avinash-218/Computational-Intelligence-Concepts/tree/master/Uniform-Cost-Search)
